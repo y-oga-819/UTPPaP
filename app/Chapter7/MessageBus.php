@@ -6,7 +6,7 @@ namespace App\Chapter7;
 
 class MessageBus
 {
-    public static function sendEmailChangedMessage(int $userId, string $newEmail): void
+    public function sendEmailChangedMessage(int $userId, string $newEmail): void
     {
         return;
     }

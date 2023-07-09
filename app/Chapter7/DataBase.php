@@ -6,24 +6,19 @@ namespace App\Chapter7;
 
 class DataBase
 {
-    private static $users = [
-        1 => [
-            'email' => 'mail@example.com',
-            'user_type' => UserType::Customer,
-        ],
-    ];
+    private static $users = [];
 
     private static $company = [
         'domain_name' => 'yukineko.work',
         'number_of_employees' => 10,
     ];
 
-    public static function getUserById(int $userId): array
+    public function getUserById(int $userId): array
     {
         return static::$users[$userId];
     }
 
-    public static function saveUser(User $user): void
+    public function saveUser(User $user): void
     {
         static::$users[$user->userId] = [
             'email' => $user->email,
@@ -31,12 +26,12 @@ class DataBase
         ];
     }
 
-    public static function getCompany(): array
+    public function getCompany(): array
     {
         return static::$company;
     }
 
-    public static function saveCompany(int $num): void
+    public function saveCompany(int $num): void
     {
         static::$company['number_of_employees'] = $num;
     }
