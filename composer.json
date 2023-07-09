@@ -1,4 +1,7 @@
 {
+    "name": "vendor/utppap",
+    "description": "Learning [Unit Testing Principles, Practices, and Patterns]",
+    "license": "MIT",
     "autoload": {
         "classmap": [
             "src/"
