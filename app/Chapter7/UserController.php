@@ -18,12 +18,11 @@ class UserController
         $user = UserFactory::create($data);
 
         $companyData = $this->dataBase->getCompany();
-        $companyDomainName = $companyData['domain_name'];
-        $numberOfEmployees = $companyData['number_of_employees'];
+        $company = CompanyFactory::create($companyData);
 
-        $newNumberOfEmployeers = $user->changeEmail($newEmail, $companyDomainName, $numberOfEmployees);
+        $user->changeEmail($newEmail,$company);
 
-        $this->dataBase->saveCompany($newNumberOfEmployeers);
+        $this->dataBase->saveCompany($company);
         $this->dataBase->saveUser($user);
         $this->messageBus->sendEmailChangedMessage($userId, $newEmail);
     }

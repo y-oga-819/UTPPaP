@@ -32,8 +32,8 @@ class DataBase
         return static::$company;
     }
 
-    public function saveCompany(int $num): void
+    public function saveCompany(Company $company): void
     {
-        static::$company['number_of_employees'] = $num;
+        static::$company['number_of_employees'] = $company->numberOfEmployees;
     }
 }
