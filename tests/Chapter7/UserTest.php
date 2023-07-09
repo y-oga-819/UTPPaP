@@ -6,6 +6,7 @@ namespace Tests\Chapter7;
 
 use PHPUnit\Framework\TestCase;
 use App\Chapter7\Company;
+use App\Chapter7\EmailChangedEvent;
 use App\Chapter7\User;
 use App\Chapter7\UserType;
 
@@ -26,6 +27,7 @@ class UserTest extends TestCase
         $this->assertSame($expected['number_of_employees'], $company->numberOfEmployees);
         $this->assertSame($expected['email'], $sut->email);
         $this->assertSame($expected['user_type'], $sut->type);
+        $this->assertEquals($expected['event'], array_shift($sut->emailChangedEvents));
     }
 
     public static function provideChangeEmail(): array
@@ -41,6 +43,7 @@ class UserTest extends TestCase
                     'number_of_employees' => 2,
                     'email' => 'new@mycorp.com',
                     'user_type' => UserType::Employee,
+                    'event' => new EmailChangedEvent(1, 'new@mycorp.com'),
                 ],
             ],
             'メールアドレスを従業員のものから非従業員のものに変える' => [
@@ -53,6 +56,7 @@ class UserTest extends TestCase
                     'number_of_employees' => 0,
                     'email' => 'new@gmail.com',
                     'user_type' => UserType::Customer,
+                    'event' => new EmailChangedEvent(1, 'new@gmail.com'),
                 ],
             ],
             'ユーザーの種類を変えずにメールアドレスを変える' => [
@@ -65,6 +69,7 @@ class UserTest extends TestCase
                     'number_of_employees' => 1,
                     'email' => 'new@gmail.com',
                     'user_type' => UserType::Customer,
+                    'event' => new EmailChangedEvent(1, 'new@gmail.com'),
                 ],
             ],
             'メールアドレスを同じメールアドレスで変える' => [
@@ -77,6 +82,7 @@ class UserTest extends TestCase
                     'number_of_employees' => 1,
                     'email' => 'user@gmail.com',
                     'user_type' => UserType::Customer,
+                    'event' => null,
                 ],
             ],
         ];

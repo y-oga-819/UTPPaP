@@ -28,7 +28,10 @@ class UserController
 
         $this->dataBase->saveCompany($company);
         $this->dataBase->saveUser($user);
-        $this->messageBus->sendEmailChangedMessage($userId, $newEmail);
+
+        foreach ($user->emailChangedEvents as $event) {
+            $this->messageBus->sendEmailChangedMessage($event->userId, $event->newEmail);
+        }
 
         return 'OK';
     }

@@ -6,6 +6,8 @@ namespace App\Chapter7;
 
 class User
 {
+    public array $emailChangedEvents = [];
+
     public function __construct(
         public int $userId,
         public string $email,
@@ -42,5 +44,7 @@ class User
 
         $this->email = $newEmail;
         $this->type = $newType;
+
+        $this->emailChangedEvents[] = new EmailChangedEvent($this->userId, $this->email);
     }
 }
