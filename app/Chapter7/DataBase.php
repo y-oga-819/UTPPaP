@@ -24,6 +24,7 @@ class DataBase
             'id' => $user->userId,
             'email' => $user->email,
             'user_type' => $user->type,
+            'is_email_confirmed' => $user->isEmailConfirmed,
         ];
     }
 

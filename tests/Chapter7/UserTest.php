@@ -19,7 +19,7 @@ class UserTest extends TestCase
     public function testChaneEmail(array $arrange, array $expected)
     {
         $company = new Company('mycorp.com', 1);
-        $sut = new User(1, $arrange['old_email'], $arrange['user_type']);
+        $sut = new User(1, $arrange['old_email'], $arrange['user_type'], false);
 
         $sut->changeEmail($arrange['new_email'], $company);
 
@@ -80,5 +80,14 @@ class UserTest extends TestCase
                 ],
             ],
         ];
+    }
+
+    public function testChaneEmailFailure(): void
+    {
+        $company = new Company('mycorp.com', 1);
+        $sut = new User(1, 'email@gmail.com', UserType::Customer, true);        
+
+        $this->expectException(\Exception::class);
+        $sut->changeEmail('new@mycorp.com', $company);
     }
 }

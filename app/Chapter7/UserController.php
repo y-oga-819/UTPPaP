@@ -12,7 +12,7 @@ class UserController
     ) {
     }
 
-    public function changeEmail(int $userId, string $newEmail): void
+    public function changeEmail(int $userId, string $newEmail): string
     {
         $data = $this->dataBase->getUserById($userId);
         $user = UserFactory::create($data);
@@ -20,10 +20,16 @@ class UserController
         $companyData = $this->dataBase->getCompany();
         $company = CompanyFactory::create($companyData);
 
-        $user->changeEmail($newEmail,$company);
+        try {
+            $user->changeEmail($newEmail, $company);
+        } catch (\Exception $e) {
+            return $e->getMessage();
+        }
 
         $this->dataBase->saveCompany($company);
         $this->dataBase->saveUser($user);
         $this->messageBus->sendEmailChangedMessage($userId, $newEmail);
+
+        return 'OK';
     }
 }
