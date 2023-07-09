@@ -21,6 +21,7 @@ class DataBase
     public function saveUser(User $user): void
     {
         static::$users[$user->userId] = [
+            'id' => $user->userId,
             'email' => $user->email,
             'user_type' => $user->type,
         ];

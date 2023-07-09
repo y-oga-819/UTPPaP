@@ -15,9 +15,7 @@ class UserController
     public function changeEmail(int $userId, string $newEmail): void
     {
         $data = $this->dataBase->getUserById($userId);
-        $email = $data['email'];
-        $type = $data['user_type'];
-        $user = new User($userId, $email, $type);
+        $user = UserFactory::create($data);
 
         $companyData = $this->dataBase->getCompany();
         $companyDomainName = $companyData['domain_name'];
